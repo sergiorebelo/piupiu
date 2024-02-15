@@ -1,0 +1,16 @@
+greeting:
+  message: "hello"
+quarkus:
+  datasource:
+    db-kind: postgres
+    jdbc:
+      driver: org.postgresql.Driver
+  hibernate-orm:
+    dialect: org.hibernate.dialect.PostgreSQLDialect
+  flyway:
+    migrate-at-start: true
+
+
+
+
+
