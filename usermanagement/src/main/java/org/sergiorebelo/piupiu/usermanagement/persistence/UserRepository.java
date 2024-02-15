@@ -36,7 +36,7 @@ public class UserRepository {
     }
 
     @Transactional
-    public Optional<User> getUserById(int id) {
+    public Optional<User> getUserById(long id) {
         return Optional.ofNullable(entityManager.find(User.class, id));
     }
 

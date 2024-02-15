@@ -26,7 +26,7 @@ public class UserResource {
 
     @GET
     @Path("/{id}")
-    public Response getUserById(@PathParam("id") int id) {
+    public Response getUserById(@PathParam("id") long id) {
         Optional<User> user = userService.getUserById(id);
         return user.map(u -> Response.ok(u).build())
                 .orElse(Response.status(Response.Status.NOT_FOUND).build());

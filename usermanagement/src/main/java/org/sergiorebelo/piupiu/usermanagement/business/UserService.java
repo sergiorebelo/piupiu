@@ -15,18 +15,24 @@ public class UserService {
 
     @Inject
     UserRepository userRepository;
+    @Inject
+    UserProfileService userProfileService;
 
     @Transactional
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
 
+    @Transactional
     public void createUser(User user) {
 
         userRepository.createUser(user);
+
+        //create a profile
+        userProfileService.createUserProfile(user);
     }
 
-    public Optional<User> getUserById(int id) {
+    public Optional<User> getUserById(long id) {
 
         return userRepository.getUserById(id);
     }

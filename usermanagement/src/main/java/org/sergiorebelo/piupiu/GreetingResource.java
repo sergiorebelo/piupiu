@@ -8,7 +8,9 @@ import jakarta.ws.rs.core.MediaType;
 import org.sergiorebelo.piupiu.usermanagement.business.UserService;
 import org.sergiorebelo.piupiu.usermanagement.entity.User;
 
+import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Path("/hello")
 public class GreetingResource {
@@ -18,17 +20,14 @@ public class GreetingResource {
     @GET
     @Produces(MediaType.TEXT_PLAIN)
     public String hello() {
-        String helloStr = "Hello ";
-        // Call the getAllUsers() method
+
+
         List<User> userList = userService.getAllUsers();
 
-        // Do something with the list of users
-        for (User user : userList) {
-            helloStr += user.getUsername();
-        }
 
-
-        return helloStr;
+        return "Hello " + userList.stream()
+                .map(User::getUsername)
+                .collect(Collectors.joining(" ,")) + ".";
     }
 
 
