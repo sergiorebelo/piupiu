@@ -31,6 +31,5 @@ public class UserProfileService {
         userProfileRepository.createUserProfile(profile);
     }
 
-
     // Other methods for managing user profiles
 }

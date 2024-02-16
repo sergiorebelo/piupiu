@@ -1,11 +1,12 @@
 package org.sergiorebelo.piupiu.usermanagement.persistence;
+
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
-import jakarta.transaction.Transactional;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
+import jakarta.transaction.Transactional;
 import org.sergiorebelo.piupiu.usermanagement.entity.User;
 
 import java.util.List;

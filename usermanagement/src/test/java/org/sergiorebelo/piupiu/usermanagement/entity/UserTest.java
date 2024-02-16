@@ -9,17 +9,17 @@ public class UserTest {
         User user = new User("testUser", "password123");
 
         assertEquals("testUser", user.getUsername());
-        assertEquals("password123", user.getPassword());
+        assertEquals("password123", user.getHashedPassword());
     }
 
     @Test
     void testSetters() {
         User user = new User();
         user.setUsername("testUser");
-        user.setPassword("password123");
+        user.setHashedPassword("password123");
 
         assertEquals("testUser", user.getUsername());
-        assertEquals("password123", user.getPassword());
+        assertEquals("password123", user.getHashedPassword());
     }
 
     @Test

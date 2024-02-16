@@ -13,14 +13,14 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-
-
     @Column(nullable = false, unique = true)
     private String username;
 
+    @Column(nullable = false)
+    private String hashedPassword;
 
     @Column(nullable = false)
-    private String password;
+    private String salt;
 
     // Additional fields such as email, full name, etc.
 
@@ -39,7 +39,7 @@ public class User {
 
     public User(String username, String password) {
         this.username = username;
-        this.password = password;
+        this.hashedPassword = password;
     }
 
     //emptu constructor
@@ -50,15 +50,7 @@ public class User {
 
     //ID
 
-    public Long getId() {
-        return id;
-    }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    //Username
 
     public String getUsername() {
         return username;
@@ -70,11 +62,11 @@ public class User {
 
     //Password
 
-    public String getPassword() {
-        return password;
+    public String getHashedPassword() {
+        return hashedPassword;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setHashedPassword(String hashedPassword) {
+        this.hashedPassword = hashedPassword;
     }
 }

@@ -16,6 +16,11 @@ public class UserProfile {
 
 
     // Empty constructor
+    public UserProfile(User user) {
+        // Initialize any fields if needed
+        this.user = user;
+    }
+
     public UserProfile() {
         // Initialize any fields if needed
     }
@@ -29,10 +34,6 @@ public class UserProfile {
 
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public User getUser() {
