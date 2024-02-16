@@ -1,6 +1,8 @@
 package org.sergiorebelo.piupiu.usermanagement.entity;
 import jakarta.persistence.*;
 
+import java.util.Objects;
+
 //import javax.persistence.*;
 
 @Entity
@@ -22,6 +24,28 @@ public class User {
 
     // Additional fields such as email, full name, etc.
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return Objects.equals(id, user.id) && Objects.equals(username, user.username);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, username);
+    }
+
+    public User(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
+
+    //emptu constructor
+    public User() {
+        //for test purposes only
+    }
     // Getters and setters
 
     //ID

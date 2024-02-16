@@ -19,6 +19,7 @@ public class UserRepository {
 
     @Transactional
     public List<User> findAll() {
+
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<User> cq = cb.createQuery(User.class);
         Root<User> root = cq.from(User.class);
@@ -27,26 +28,30 @@ public class UserRepository {
     }
 
     @Transactional
-    public User getMostRecentUser() {
+    public Optional<User> getMostRecentUser() {
+
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<User> cq = cb.createQuery(User.class);
         Root<User> root = cq.from(User.class);
         cq.select(root).orderBy(cb.desc(root.get("registrationDate")));
-        return entityManager.createQuery(cq).setMaxResults(1).getSingleResult();
+        return Optional.ofNullable(entityManager.createQuery(cq).setMaxResults(1).getSingleResult());
     }
 
     @Transactional
     public Optional<User> getUserById(long id) {
+
         return Optional.ofNullable(entityManager.find(User.class, id));
     }
 
     @Transactional
     public Optional<User> getUserByUsername(String username) {
+
         CriteriaBuilder cb = entityManager.getCriteriaBuilder();
         CriteriaQuery<User> cq = cb.createQuery(User.class);
         Root<User> root = cq.from(User.class);
         cq.select(root).where(cb.equal(root.get("username"), username));
-        return entityManager.createQuery(cq).getResultStream().findFirst();
+        return Optional.ofNullable(entityManager.createQuery(cq).setMaxResults(1).getSingleResult());
+        //return entityManager.createQuery(cq).getResultStream().findFirst();
     }
 
     @Transactional
