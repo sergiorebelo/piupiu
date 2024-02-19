@@ -22,14 +22,17 @@
             list-style-type: none;
             padding: 0;
             margin: 0;
+
         }
         #menu ul li {
             display: inline;
             margin-right: 10px;
+
         }
         #menu ul li a {
             text-decoration: none;
             color: #333;
+            background-color: #abcdef;
         }
         #menu ul li a:hover {
             color: #666;
@@ -87,7 +90,10 @@
 <!-- Menu -->
 <div id="menu">
     <ul>
-        <li><a href="#user-management">User Management</a></li>
+        <li><a href="#create-user">Create User</a></li>
+        <li><a href="#fetch-user-by-username" ">Fetch User by Username</a></li>
+        <li><a href="#fetch-user-by-id" ">Fetch User by ID</a></li>
+        <li>|</li>
         <li><a href="#cors-test">CORS Test</a></li>
     </ul>
 </div>
@@ -97,7 +103,7 @@
     <h2>User Management</h2>
 
     <!-- Create User Form -->
-    <div class="form-container">
+    <div id="#create-user" class="form-container">
         <h3>Create User</h3>
         <form id="createUserForm" onsubmit="createUser(event)">
             <label for="createUsername">Username:</label>
@@ -109,7 +115,7 @@
     </div>
 
     <!-- Fetch User by Username -->
-    <div class="form-container">
+    <div id="#fetch-user-by-username" class="form-container">
         <h3>Fetch User by Username</h3>
         <form id="fetchUserForm" onsubmit="fetchUserByUsername(event)">
             <label for="fetchUsername">Username:</label>
@@ -117,6 +123,17 @@
             <button type="submit">Fetch User</button>
         </form>
         <div id="userDataByUsername" class="response-container"></div>
+    </div>
+
+    <!-- Fetch User by ID -->
+    <div  id="#fetch-user-by-id" class="form-container">
+        <h3>Fetch User by ID</h3>
+        <form id="fetchUserByIDForm" onsubmit="fetchUserByID(event)">
+            <label for="fetchUsername">Username:</label>
+            <input type="text" id="fetchID" name="fetchUsername" required><br>
+            <button type="submit">Fetch User</button>
+        </form>
+        <div id="userDataByID" class="response-container"></div>
     </div>
 </div>
 
@@ -169,6 +186,32 @@
 
                 // Display the formatted data
                 document.getElementById('userDataByUsername').innerText = formattedData;
+            })
+            .catch(error => console.error('Error:', error));
+
+    }
+
+     // Function to fetch user by ID
+    function fetchUserByID(event) {
+        event.preventDefault();
+        const form = document.getElementById('fetchUserByIDForm');
+        const username = form.elements['fetchID'].value;
+        // Call API to fetch user by username
+        fetch(`http://localhost:8080/users/${id}`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                // Parse and format the JSON data
+                const formattedData = Object.entries(data)
+                    .map(([key, value]) => `${key}: ${value}`)
+                    .join('\n');
+
+                // Display the formatted data
+                document.getElementById('userDataByID').innerText = formattedData;
             })
             .catch(error => console.error('Error:', error));
 
