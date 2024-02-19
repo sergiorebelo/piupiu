@@ -26,67 +26,95 @@ public class UserResourceTest {
     @InjectMocks
     private UserResource userResource;
 
-
-
     @Test
     void testCreateUser() {
+
+        // Prepare
         User user = new User("testUser", "password123");
         doNothing().when(userService).createUser(user);
 
-
-
-
+        // Execute
         Response response = userResource.createUser(new UserDTO(user));
 
+        // Verify
         assertEquals(Response.Status.CREATED.getStatusCode(), response.getStatus());
         verify(userService, times(1)).createUser(user);
     }
 
     @Test
+    void testCreateUser_alreadyExists() {
+
+        // Prepare
+        UserDTO user = new UserDTO("testUser", "password123");
+        when(userService.isUsernameTaken(user.getUsername())).thenReturn(true);
+
+        // Execute
+        Response response = userResource.createUser(user);
+
+        // Verify
+        assertEquals(Response.Status.CONFLICT.getStatusCode(), response.getStatus());
+        verify(userService, times(0)).createUser(new User());
+    }
+
+    @Test
     void testGetUserById_UserExists() {
+
+        // Prepare
         long userId = 1L;
         User user = new User("testUser", "password123");
         when(userService.getUserById(userId)).thenReturn(Optional.of(user));
 
+        // Execute
         Response response = userResource.getUserById(userId);
 
+        // Verify
         assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
-
         UserDTO created = (UserDTO)response.getEntity();
         assertEquals(user.getUsername(), created.getUsername() );
     }
 
     @Test
     void testGetUserById_UserNotExists() {
+
+        // Prepare
         long userId = 1L;
         when(userService.getUserById(userId)).thenReturn(Optional.empty());
 
+        // Execute
         Response response = userResource.getUserById(userId);
 
+        // Verify
         assertEquals(Response.Status.NOT_FOUND.getStatusCode(), response.getStatus());
     }
 
     @Test
     void testGetUserByUsername_UserExists() {
+
+        // Prepare
         String username = "testUser";
         User user = new User(username, "password123");
         when(userService.getUserByUsername(username)).thenReturn(Optional.of(user));
 
+        // Execute
         Response response = userResource.getUserByUsername(username);
 
+        // Verify
         assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
-
         UserDTO created = (UserDTO)response.getEntity();
         assertEquals(user.getUsername(), created.getUsername() );
     }
 
     @Test
     void testGetUserByUsername_UserNotExists() {
+
+        // Prepare
         String username = "testUser";
         when(userService.getUserByUsername(username)).thenReturn(Optional.empty());
 
+        // Execute
         Response response = userResource.getUserByUsername(username);
 
+        // Verify
         assertEquals(Response.Status.NOT_FOUND.getStatusCode(), response.getStatus());
     }
 }

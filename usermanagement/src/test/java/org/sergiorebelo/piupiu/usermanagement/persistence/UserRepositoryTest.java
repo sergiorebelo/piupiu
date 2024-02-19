@@ -7,24 +7,23 @@ import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
-import jakarta.persistence.criteria.Order;
 import jakarta.persistence.criteria.Root;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import org.junit.jupiter.api.extension.ExtendWith;
+
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Stream;
 
+import org.sergiorebelo.piupiu.usermanagement.business.UserService;
 import org.sergiorebelo.piupiu.usermanagement.entity.User;
-import org.sergiorebelo.piupiu.usermanagement.persistence.UserRepository;
+
+
 
 
 public class UserRepositoryTest {
@@ -34,6 +33,10 @@ public class UserRepositoryTest {
 
     @InjectMocks
     UserRepository userRepository;
+
+
+    @InjectMocks
+    private UserService userService;
 
     @BeforeEach
     void setUp() {
@@ -309,6 +312,10 @@ public class UserRepositoryTest {
         assertTrue(result.isEmpty());
     }
 
+
+
+
+
     @Test
     void createUser() {
         // Mock EntityManager
@@ -327,6 +334,7 @@ public class UserRepositoryTest {
         // Verify
         verify(entityManager).persist(user);
     }
+
 
 
 }

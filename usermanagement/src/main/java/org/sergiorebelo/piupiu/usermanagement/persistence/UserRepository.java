@@ -58,7 +58,6 @@ public class UserRepository {
             // todo: log
             return Optional.ofNullable(null);
         }
-        //return entityManager.createQuery(cq).getResultStream().findFirst();
     }
 
     @Transactional

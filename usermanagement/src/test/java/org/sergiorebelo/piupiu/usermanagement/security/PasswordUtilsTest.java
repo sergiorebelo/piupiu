@@ -1,7 +1,11 @@
 package org.sergiorebelo.piupiu.usermanagement.security;
 
 import org.junit.jupiter.api.Test;
+
+import java.security.NoSuchAlgorithmException;
+
 import static org.junit.jupiter.api.Assertions.*;
+
 
 public class PasswordUtilsTest {
 
@@ -36,5 +40,9 @@ public class PasswordUtilsTest {
         assertEquals(16, salt.length); // Check if the salt has the correct length
     }
 
+    @Test
+    public void testGenerateSaltException() throws NoSuchAlgorithmException {
+        // todo: Test the exceptional case
+    }
 }
 

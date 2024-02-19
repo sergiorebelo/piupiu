@@ -27,7 +27,7 @@ public class PasswordUtils {
         try {
             return SecureRandom.getInstanceStrong().generateSeed(16);
         } catch (NoSuchAlgorithmException e) {
-            //todo: log error;
+            // todo: log error
             throw new RuntimeException(e);
         }
     }
@@ -38,9 +38,8 @@ public class PasswordUtils {
             SecretKeyFactory factory = SecretKeyFactory.getInstance(ALGORITHM);
             return factory.generateSecret(spec).getEncoded();
         } catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
+            // todo: log error
             throw new RuntimeException("Error hashing password", e);
         }
     }
-
-
 }

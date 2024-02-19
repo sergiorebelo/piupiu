@@ -1,5 +1,6 @@
 package org.sergiorebelo.piupiu.usermanagement.entity;
 import jakarta.persistence.*;
+import org.sergiorebelo.piupiu.usermanagement.api.dto.UserDTO;
 
 import java.util.Objects;
 
@@ -39,7 +40,12 @@ public class User {
 
     public User(String username, String password) {
         this.username = username;
-        this.hashedPassword = password;
+        // this.hashedPassword = password; //todo: no password without salt
+    }
+
+    public User(UserDTO dto) {
+        this.username = dto.getUsername();
+
     }
 
     //empty constructor
