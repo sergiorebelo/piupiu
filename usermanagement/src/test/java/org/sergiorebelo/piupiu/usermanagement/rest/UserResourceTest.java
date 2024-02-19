@@ -7,9 +7,10 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.sergiorebelo.piupiu.usermanagement.api.dto.UserDTO;
+import org.sergiorebelo.piupiu.usermanagement.api.endpoint.UserResource;
 import org.sergiorebelo.piupiu.usermanagement.business.UserService;
 import org.sergiorebelo.piupiu.usermanagement.entity.User;
-import org.sergiorebelo.piupiu.usermanagement.security.PasswordUtils;
 
 import java.util.Optional;
 
@@ -32,10 +33,10 @@ public class UserResourceTest {
         User user = new User("testUser", "password123");
         doNothing().when(userService).createUser(user);
 
-        String hashedPassword = "hashedPassword123";
 
 
-        Response response = userResource.createUser(user);
+
+        Response response = userResource.createUser(new UserDTO(user));
 
         assertEquals(Response.Status.CREATED.getStatusCode(), response.getStatus());
         verify(userService, times(1)).createUser(user);
@@ -50,7 +51,9 @@ public class UserResourceTest {
         Response response = userResource.getUserById(userId);
 
         assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
-        assertEquals(user, response.getEntity());
+
+        UserDTO created = (UserDTO)response.getEntity();
+        assertEquals(user.getUsername(), created.getUsername() );
     }
 
     @Test
@@ -72,7 +75,9 @@ public class UserResourceTest {
         Response response = userResource.getUserByUsername(username);
 
         assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
-        assertEquals(user, response.getEntity());
+
+        UserDTO created = (UserDTO)response.getEntity();
+        assertEquals(user.getUsername(), created.getUsername() );
     }
 
     @Test

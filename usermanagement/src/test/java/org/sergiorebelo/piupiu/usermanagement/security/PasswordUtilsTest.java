@@ -24,14 +24,8 @@ public class PasswordUtilsTest {
 
     @Test
     void testHashMethodWhenNoSuchAlgorithmExceptionIsThrown() throws Exception {
-//        // Prepare
-//        String password = "password";
-//        byte[] salt = new byte[16];
-//        SecretKeyFactory factory = mock(SecretKeyFactory.class);
-//       // when(factory.generateSecret(Mockito.any())).thenThrow(new NoSuchAlgorithmException());
-//
-//        // Execute and Verify
-//        assertThrows(RuntimeException.class, () -> PasswordUtils.hashPassword(password, salt));
+        // todo: test the case where there is an exception
+
     }
 
     @Test

@@ -16,11 +16,13 @@ public class PasswordUtils {
 
     public static String hashPassword(String password, byte[] salt) {
 
+        if (password == null) throw new SecurityException("Invalid PAssword");
         byte[] hashedPassword = hash(password.toCharArray(), salt);
         return Base64.getEncoder().encodeToString(salt) + "==:" + Base64.getEncoder().encodeToString(hashedPassword);
     }
 
     public static byte[] generateSalt() {
+
         // Generate a random salt
         try {
             return SecureRandom.getInstanceStrong().generateSeed(16);

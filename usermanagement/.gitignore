@@ -1,4 +1,7 @@
-#Maven
+# Ignore the .gitignore file itself
+.gitignore
+
+# Maven
 target/
 pom.xml.tag
 pom.xml.releaseBackup
@@ -42,5 +45,9 @@ nb-configuration.xml
 # Plugin directory
 /.quarkus/cli/plugins/
 
-#Application Settings
+# Application Settings
 application-dev.yml
+flyway.properties
+
+# Logs
+logs/

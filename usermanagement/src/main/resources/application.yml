@@ -1,5 +1,3 @@
-greeting:
-  message: "hello"
 quarkus:
   datasource:
     db-kind: postgres
@@ -10,3 +8,17 @@ quarkus:
   flyway:
     migrate-at-start: true
     validate-migration-naming: true
+  http:
+    cors:
+      enabled: true
+      allow-origin: "http://localhost:63342"
+      allow-methods: [ "GET", "POST", "PUT", "DELETE", "OPTIONS" ]
+      allow-headers: [ "Content-Type", "Authorization"]
+      exposed-headers: [ "Content-Type", "Authorization" ]
+  log:
+    level: INFO
+    category:
+      "org.sergiorebelo.piupiu.usermanagement.*": TRACE
+    file:
+      enable: true
+      path: logs/myapp.log

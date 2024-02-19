@@ -3,6 +3,7 @@ package org.sergiorebelo.piupiu.usermanagement.persistence;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.NoResultException;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Root;
@@ -51,7 +52,12 @@ public class UserRepository {
         CriteriaQuery<User> cq = cb.createQuery(User.class);
         Root<User> root = cq.from(User.class);
         cq.select(root).where(cb.equal(root.get("username"), username));
-        return Optional.ofNullable(entityManager.createQuery(cq).setMaxResults(1).getSingleResult());
+        try {
+            return Optional.ofNullable(entityManager.createQuery(cq).setMaxResults(1).getSingleResult());
+        } catch (NoResultException e) {
+            // todo: log
+            return Optional.ofNullable(null);
+        }
         //return entityManager.createQuery(cq).getResultStream().findFirst();
     }
 

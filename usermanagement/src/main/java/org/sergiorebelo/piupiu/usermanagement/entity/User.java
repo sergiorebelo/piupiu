@@ -20,7 +20,7 @@ public class User {
     private String hashedPassword;
 
     @Column(nullable = false)
-    private String salt;
+    private byte[] salt;
 
     // Additional fields such as email, full name, etc.
 
@@ -42,7 +42,7 @@ public class User {
         this.hashedPassword = password;
     }
 
-    //emptu constructor
+    //empty constructor
     public User() {
         //for test purposes only
     }
@@ -50,7 +50,7 @@ public class User {
 
     //ID
 
-
+    public Long getId() { return id; }
 
     public String getUsername() {
         return username;
@@ -62,11 +62,13 @@ public class User {
 
     //Password
 
-    public String getHashedPassword() {
-        return hashedPassword;
-    }
+    public String getHashedPassword() { return hashedPassword; }
 
     public void setHashedPassword(String hashedPassword) {
         this.hashedPassword = hashedPassword;
     }
+
+    public void setSalt(byte[] salt) { this.salt = salt; }
+
+    public byte[] getSalt() { return salt; }
 }

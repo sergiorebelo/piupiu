@@ -3,6 +3,7 @@ package org.sergiorebelo.piupiu.usermanagement.business;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
+import org.sergiorebelo.piupiu.usermanagement.api.dto.UserDTO;
 import org.sergiorebelo.piupiu.usermanagement.entity.User;
 import org.sergiorebelo.piupiu.usermanagement.persistence.UserRepository;
 
@@ -26,7 +27,7 @@ public class UserService {
     @Transactional
     public void createUser(User user) {
 
-        userRepository.createUser(user);
+        if (!isUsernameTaken(user.getUsername())) { userRepository.createUser(user); }
 
         //create a profile
         userProfileService.createUserProfile(user);
@@ -40,5 +41,9 @@ public class UserService {
     public Optional<User> getUserByUsername(String username) {
 
         return userRepository.getUserByUsername(username);
+    }
+
+    public boolean isUsernameTaken(String username) {
+        return getUserByUsername(username).isPresent();
     }
 }

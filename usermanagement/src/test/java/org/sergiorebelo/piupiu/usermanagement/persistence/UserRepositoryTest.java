@@ -55,7 +55,7 @@ public class UserRepositoryTest {
         when(entityManager.createQuery(criteriaQuery)).thenReturn(typedQuery);
 
         // Prepare data
-        List<User> userList = Arrays.asList();
+        List<User> userList = List.of();
         when(typedQuery.getResultList()).thenReturn(userList);
 
         // Inject EntityManager into UserRepository
@@ -85,7 +85,7 @@ public class UserRepositoryTest {
         when(entityManager.createQuery(criteriaQuery)).thenReturn(typedQuery);
 
         // Prepare data
-        List<User> userList = Arrays.asList(new User());
+        List<User> userList = List.of(new User());
         when(typedQuery.getResultList()).thenReturn(userList);
 
         // Inject EntityManager into UserRepository
@@ -293,10 +293,10 @@ public class UserRepositoryTest {
         when(entityManager.createQuery(criteriaQuery)).thenReturn(typedQuery);
 
         // Prepare data
-        User user = new User();
+
 
         when(typedQuery.setMaxResults(1)).thenReturn(typedQuery);
-        when(typedQuery.getSingleResult()).thenReturn(user);
+        when(typedQuery.getSingleResult()).thenReturn(null);
 
         // Inject EntityManager into UserRepository
         UserRepository userRepository = new UserRepository();
@@ -306,12 +306,11 @@ public class UserRepositoryTest {
         Optional<User> result = userRepository.getUserByUsername("username");
 
         // Verify
-        assertTrue(result.isPresent());
-        assertEquals(user, result.get());
+        assertTrue(result.isEmpty());
     }
 
     @Test
-    void testCreateUser() {
+    void createUser() {
         // Mock EntityManager
         EntityManager entityManager = mock(EntityManager.class);
 
@@ -328,4 +327,6 @@ public class UserRepositoryTest {
         // Verify
         verify(entityManager).persist(user);
     }
+
+
 }
