@@ -129,7 +129,7 @@
     <div  id="#fetch-user-by-id" class="form-container">
         <h3>Fetch User by ID</h3>
         <form id="fetchUserByIDForm" onsubmit="fetchUserByID(event)">
-            <label for="fetchUsername">Username:</label>
+            <label for="fetchID">ID:</label>
             <input type="text" id="fetchID" name="fetchUsername" required><br>
             <button type="submit">Fetch User</button>
         </form>
@@ -195,7 +195,7 @@
     function fetchUserByID(event) {
         event.preventDefault();
         const form = document.getElementById('fetchUserByIDForm');
-        const username = form.elements['fetchID'].value;
+        const id = form.elements['fetchID'].value;
         // Call API to fetch user by username
         fetch(`http://localhost:8080/users/${id}`)
             .then(response => {
