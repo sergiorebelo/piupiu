@@ -40,7 +40,13 @@ public class User {
 
     public User(String username, String password) {
         this.username = username;
-        // this.hashedPassword = password; //todo: no password without salt
+        // no password without salt
+    }
+
+    public User(String username, String hashedPassword, byte[] salt) {
+        this.username = username;
+        this.hashedPassword = hashedPassword;
+        this.salt = salt;
     }
 
     public User(UserDTO dto) {

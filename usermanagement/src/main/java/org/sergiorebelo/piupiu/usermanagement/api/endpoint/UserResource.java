@@ -41,8 +41,7 @@ public class UserResource {
         byte[] salt = PasswordUtils.generateSalt();
         String hashedPassword = PasswordUtils.hashPassword(user.getPassword(), salt);
 
-        User userEntity = new User(user.getUsername(), hashedPassword);
-        userEntity.setSalt(salt);
+        User userEntity = new User(user.getUsername(), hashedPassword, salt);
 
         // Proceed with the creation of the user
         userService.createUser(userEntity);
